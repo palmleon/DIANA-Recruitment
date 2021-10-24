@@ -1,0 +1,15 @@
+4
+ToRo 100 2
+FR-MA 1.30
+AN-CO 1.28
+Ardito 101 3
+FR-VE 1.46
+FD-QC 1.21
+KA-YL 1.31
+Amalia 117 2
+TH-GA 1.46
+AL-ME 1.10
+Trinity 89 3
+GA-PA 1.19
+KA-CA 1.36
+MA-GU 1.27
