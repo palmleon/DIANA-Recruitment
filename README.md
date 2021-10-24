@@ -1,6 +1,10 @@
 # Probe-Tool
 
-Probe-Tool consists of two parts. First part to find unique stones for each rover from the field and output them as stated. Second part is to make a command program which will take the input from the first part and print what is asked for. 
+In a Space Mission, Team DIANA deploys rovers on Mars to make analisis on rocks.
+Team DIANA CS department wrote Probe-tool to collect information and manage the results on a high level.
+
+Probe-Tool consists of two parts. First part to find unique stones for each rover from the field and output them as stated. Second part is to make a command program which will take the input from the first part and show what is asked for. 
+
 
 ## Software requirements
 ### First Part:
@@ -10,7 +14,7 @@ The first line of the "rovers.txt" file stores the number of rovers in the team.
 Then, for each rover, the file stores:
 - On the first line, its name (string of 10 characters at most),
 Identifier (integer value), number of unique stone codes.
-- On the second line, unique stone code (string of 10 characters at most), quality number of that unique stone.
+- On the second line, unique stone code (string of 10 characters at most) that the rover is able to analize, quality number of that unique stone. 
 
 The "field.txt" file contains characters representing the field, which contains some of the unique stone codes in it, that will be used to scan through to get the needed output. (6 rows, 20 columns).
 
