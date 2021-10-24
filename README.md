@@ -10,7 +10,7 @@ The first line of the "rovers.txt" file stores the number of rovers in the team.
 Then, for each rover, the file stores:
 - On the first line, its name (string of 10 characters at most),
 Identifier (integer value), number of unique stone codes.
--On the second line, unique stone code (string of 10 characters at most), quality number of that unique stone.
+- On the second line, unique stone code (string of 10 characters at most), quality number of that unique stone.
 
 The "field.txt" file contains characters representing the field, which contains some of the unique stone codes in it, that will be used to scan through to get the needed output. (6 rows, 20 columns).
 
