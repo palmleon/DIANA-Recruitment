@@ -8,7 +8,7 @@ Probe-Tool consists of two parts. First part to find unique stones for each rove
 
 ## Software requirements
 ### First Part:
-During a space mission each rover of the team needs to collect some specific stones from the field. For this space mission, 2 input files are written in the following format. (field.txt and rovers.txt)
+During the Space Mission, each rover of the team needs to collect some specific stones from the field. For this space mission, 2 input files are written in the following format. (field.txt and rovers.txt)
 
 The first line of the "rovers.txt" file stores the number of rovers in the team.
 Then, for each rover, the file stores:
