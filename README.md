@@ -1,7 +1,7 @@
 # Probe-Tool
 
 In a Space Mission, Team DIANA deploys rovers on Mars to make analisis on rocks.
-Team DIANA CS department is planning to write Probe-Tool to collect information and manage the results on a high level.
+Team DIANA CS department is planning to write Probe-Tool to collect information and manage the results on a high level... But they don't know how! Can you help them?
 
 Probe-Tool consists of two parts. First part to find unique stones for each rover from the field and output them as stated. Second part is to make a command program which will take the input from the first part and show what is asked for. 
 
