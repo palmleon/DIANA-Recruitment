@@ -55,7 +55,7 @@ MA-GU 1.27
 ## Info about the output file!
 Warning: **The output file of the first question will be the input file of the second question!**
 ### Second Part:
-During a space mission each rover of the team
+During the space mission each rover of the team
 is checked after every time a stone collected.
 For each rover all collected stone's quality numbers are stored in a file with the following
 format.
