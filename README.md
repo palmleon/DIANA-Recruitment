@@ -1,6 +1,6 @@
 # Probe-Tool
 
-Probe-Tool consists of two parts. First part is to find unique stones for each rover from the field and output them as stated. Second part is to make a command program which will take the input from the first part and print what is asked for. 
+Probe-Tool consists of two parts. First part to find unique stones for each rover from the field and output them as stated. Second part is to make a command program which will take the input from the first part and print what is asked for. 
 
 ## Software requirements
 ### First Part:
