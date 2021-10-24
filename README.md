@@ -1,4 +1,4 @@
-# ServiceTool-Recruitment-
+# Service-Tool
 
 ServiceTool is a command line tool meant to monitor the status of linux services
 and start and stop them easily.
