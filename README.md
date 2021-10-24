@@ -1,9 +1,9 @@
 # Probe-Tool
 
-Probe
+Probe-Tool consists of two parts. First part is to find unique stones for each rover from the field and output them as stated. Second part is to make a command program which will take the input from the first part and print what is asked for. 
 
-### Software requirements
-## First Part:
+## Software requirements
+### First Part:
 During a space mission each rover of the team needs to collect some specific stones from the field. For this space mission, 2 input files are written in the following format. (field.txt and rovers.txt)
 
 The first line of the "rovers.txt" file stores the number of rovers in the team.
@@ -20,8 +20,41 @@ Write a program that, after reading the files and storing its content in a prope
 	-  Name, identifier (integer value), TOTAL number of stones collected.
 	-  Next line: all quality numbers of the stones collected,
   	   stone_1 stone_2 ... stone_N, stored as real values.
+	
+### File Previews
 
-## Second Part:
+"field.txt":
+```
+FIEFR-MALDFITH-GAELD
+FFR-VEIFD-QCEAN-COLD
+FIEAL-MELDFITH-GAELD
+FIELDKA-CAFIEFD-QCLD
+FMA-GUI-LDKA-YLFIELD
+FGA-PAIEGA-PALFR-MAD
+
+```
+"rovers.txt":
+```
+4
+ToRo 100 2
+FR-MA 1.30
+AN-CO 1.28
+Ardito 101 3
+FR-VE 1.46
+FD-QC 1.21
+KA-YL 1.31
+Amalia 117 2
+TH-GA 1.46
+AL-ME 1.10
+Trinity 89 3
+GA-PA 1.19
+KA-CA 1.36
+MA-GU 1.27
+
+```
+## Info about the output file!
+Warning: **The output file of the first question will be the input file of the second question!**
+### Second Part:
 During a space mission each rover of the team
 is checked after every time a stone collected.
 For each rover all collected stone's quality numbers are stored in a file with the following
