@@ -1,5 +1,6 @@
-/* Leonardo Palmucci
- * Code developed for the Team DIANA Recruitment (October 2021)
+/* 
+ * Code developed for the Team DIANA Recruitment
+ * Leonardo Palmucci, October 2021
  */
 
 #include <iostream>
