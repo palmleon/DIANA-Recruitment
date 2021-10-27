@@ -12,12 +12,12 @@ using namespace std;
 
 class Stone {
     // for the sake of simplicity, all attributes are public 
-    // to avoid defining setters/getters
+    // to avoid making the code unnecessarily cumbersome
 public:
     string code;
     double quality;
     unsigned int rocks_found;
-    Stone(){}
+    Stone(){} //never used
     Stone(string code, double quality){
         this->code = code; 
         this->quality = quality;
@@ -27,13 +27,13 @@ public:
 
 class Rover {
     // for the sake of simplicity, all attributes are public 
-    // to avoid defining setters/getters
+    // to avoid making the code unnecessarily cumbersome
 public:
     string name;
     int id;
     unsigned int total_rocks_found;
     vector<Stone> stone_vector; // stores all the stones for a rover
-    Rover(){}
+    Rover(){} // never used
     Rover(string name, int id, int n_stonecodes){
         this->name = name;
         this->id = id;
@@ -58,6 +58,7 @@ int main(){
         file.close();
         return EXIT_FAILURE;
     }
+    // a bit safer than using stream operators, in this case
     n_rovers = stoul(line);
     // we assume that, from now on, there are no syntax errors
     // in the rovers.txt file
@@ -78,14 +79,14 @@ int main(){
     } 
     /* these variables are used to traverse lines, keeping track
      * of where we are:
-     * - match_pos is the point where a rock has been found
      * - pos is the index where we should read from
+     * - match_pos is the point where a rock has been found
      */
     int match_pos, pos, linenum = 0;
     /* for each line, we try to look for all the rocks, one after the other
-     * Assumption: it is not possible to find substrings like:
-     * FR-MA-GU, i.e. there are rocks sharing some letters
-     * If false, the file is ambiguous, hence ill-formatted
+     * Assumption: it is not possible to find substrings like
+     * FR-MA-GU, i.e. rocks sharing some letters
+     * If this assumption is false, the file is ambiguous, hence ill-formatted
      * */
     while(getline(file,line)){
         for (int i = 0; i < n_rovers; i++){
@@ -97,9 +98,9 @@ int main(){
                 while(match_pos != -1){
                     // the rover has found one rock
                     rover_vector[i].total_rocks_found++;
-                    // the rover has found one rock with this code
+                    // the rover has found one rock of this type
                     rover_vector[i].stone_vector[j].rocks_found++;
-                    // we should look for the rock only in the rest of the string
+                    // from now on, we should look for the rock only in the rest of the string
                     pos = match_pos + stone_code.length();
                     match_pos = line.find(stone_code, pos);
                 }
