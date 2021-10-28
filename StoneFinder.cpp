@@ -44,7 +44,8 @@ public:
 };
 
 int main(){
-    int n_rovers, rover_id, n_stonecodes;
+    unsigned long n_rovers; // stoul returns an unsigned long (see below)
+    int rover_id, n_stonecodes;
     double stone_quality;
     string line, rover_name, stone_code;
     vector<Rover> rover_vector;
@@ -64,7 +65,7 @@ int main(){
     // we assume that, from now on, there are no syntax errors
     // in the rovers.txt file
     rover_vector = vector<Rover>(n_rovers);
-    for (int i = 0; i < n_rovers; i++) {
+    for (unsigned long i = 0; i < n_rovers; i++) {
         file >> rover_name >> rover_id >> n_stonecodes;
         rover_vector[i] = Rover(rover_name, rover_id, n_stonecodes);
         for (int j = 0; j < n_stonecodes; j++) {
@@ -90,7 +91,7 @@ int main(){
      * If this assumption is false, the file is ambiguous, hence ill-formatted
      * */
     while(getline(file,line)){
-        for (int i = 0; i < n_rovers; i++){
+        for (unsigned long i = 0; i < n_rovers; i++){
             for (int j = 0; j < rover_vector[i].stone_vector.size(); j++){
                 pos = 0;
                 stone_code = rover_vector[i].stone_vector[j].code;
@@ -116,7 +117,7 @@ int main(){
         return EXIT_FAILURE;
     } 
     file << n_rovers << endl;
-    for(int i = 0; i < n_rovers; i++) {
+    for(unsigned long i = 0; i < n_rovers; i++) {
         file << rover_vector[i].name << " ";
         file << rover_vector[i].id << " ";
         file << rover_vector[i].total_rocks_found << endl;
