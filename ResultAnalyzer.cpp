@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <vector>
 #include <unordered_map>
 #define INPUT_FILE "./results.txt"
@@ -30,7 +31,13 @@ class rover{
 
 // function that prints a user-friendly menu, displaying all possible options
 void print_menu(){
-    cout << "Type a command here" << endl;
+    cout << "--------------------------------------------" << endl;
+    cout << "TYPE ONE OF THE FOLLOWING COMMANDS:" << endl;
+    cout << "list: list number of rovers, their names, ids and number of stones collected " << endl;
+    cout << "show <rover_name>: show name, id and stone datas of a given rover" << endl;
+    cout << "best: show name, id, stone data and avg stone quality of the most proficient rover" << endl;
+    cout << "end: close the program" << endl;
+    cout << "--------------------------------------------" << endl;
 }
 
 int main(){
@@ -78,25 +85,75 @@ int main(){
     // loop that manages the menu inquiry, until the terminating command is received
     unordered_map<string, command_type> conversion_table = { {"list", LIST}, {"show", SHOW}, {"best", BEST}, {"end", END} };
     // the command provided by the user
+    string command_string;
+    // stringstream containing the command (useful to parse command args)
+    stringstream command_stream;
+    // the actual command contained in command_string, which is an entire line, not a single command!
     string command;
+    // string used to read command line arguments (especially for SHOW)
+    string command_line_arg;
     // the corresponding Enum value
     command_type command_value;
+    // flag used by the SHOW command to recognize if the rover to show exists
+    bool rover_found = false;
     do {
         print_menu();
-        cin >> command;
+        getline(cin, command_string);
+        command_stream = stringstream(command_string);
+        command_stream >> command;
         if(conversion_table.count(command) > 0) {
             command_value = conversion_table[command];
         }
         else command_value = ERROR;
         switch (command_value) {
             case LIST: 
-                // TODO
+                if (command_stream >> command_line_arg) 
+                    cout << "ERROR: Too many arguments" << endl;
+                else {
+                    cout << "Number of Rovers: " << n_rovers << endl;
+                    for (int i = 0; i < n_rovers; i++){
+                        cout << "Name: " << rovers[i].name << "\t";
+                        cout << "Id: " << rovers[i].id << "\t";
+                        cout << "Stones: " << rovers[i].n_stones_collected << endl;
+                    }
+                }
                 break;
             case SHOW:
-                // TODO
+                rover_found = false;
+                if (! (command_stream >> command_line_arg)) //no args
+                    cout << "ERROR: Missing argument" << endl;
+                else if (command_stream >> command_line_arg) // n_args > 1
+                    cout << "ERROR: Too many arguments" << endl;
+                else {
+                    for(int i = 0; i < n_rovers && !rover_found; i++) {
+                        if(rovers[i].name.compare(command_line_arg) == 0) {
+                            cout << "You have selected: " << endl;
+                            cout << "Name: " << rovers[i].name << "\t";
+                            cout << "Id: " << rovers[i].id << endl;
+                            cout << "Stone Qualities: ";
+                            for(int j = 0; j < rovers[i].n_stones_collected; j++)
+                                cout << rovers[i].stones[j] << " ";
+                            cout << endl;
+                            rover_found = true; 
+                        }
+                    }
+                    if (!rover_found) {
+                        cout << "ERROR: This Rover does not exist!" << endl;
+                    }
+                }
                 break;
             case BEST:
-                // TODO
+                if (command_stream >> command_line_arg)
+                    cout << "ERROR: Too many arguments" << endl;
+                else {
+                    cout << "Name: " << best_rover.name << "\t";
+                    cout << "Id: " << best_rover.id << endl;
+                    cout << "Stone Qualities: ";
+                    for(int i = 0; i < best_rover.n_stones_collected; i++)
+                        cout << best_rover.stones[i] << " ";
+                    cout << endl;
+                    cout << "Average Stone Quality: " << best_avg_quality << endl;
+                }
                 break;
             case END:
                 cout << "It's been a pleasure. Bye!" << endl;
@@ -105,7 +162,6 @@ int main(){
                 cout << "Command not recognized. Retry." << endl;
                 break;
         }
-
     } while (command_value != END);
 
     return 0;
