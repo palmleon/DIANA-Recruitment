@@ -34,7 +34,7 @@ void print_menu(){
     cout << "--------------------------------------------" << endl;
     cout << "TYPE ONE OF THE FOLLOWING COMMANDS:" << endl;
     cout << "list: list number of rovers, their names, ids and number of stones collected " << endl;
-    cout << "show <rover_name>: show name, id and stone datas of a given rover" << endl;
+    cout << "show <rover_name>: show name, id and stone data of a given rover" << endl;
     cout << "best: show name, id, stone data and avg stone quality of the most proficient rover" << endl;
     cout << "end: close the program" << endl;
     cout << "--------------------------------------------" << endl;
@@ -82,20 +82,20 @@ int main(){
         }
     }
     file.close();
-    // loop that manages the menu inquiry, until the terminating command is received
     unordered_map<string, command_type> conversion_table = { {"list", LIST}, {"show", SHOW}, {"best", BEST}, {"end", END} };
     // the command provided by the user
     string command_string;
-    // stringstream containing the command (useful to parse command args)
+    // stringstream containing the command (used to read command line args)
     stringstream command_stream;
-    // the actual command contained in command_string, which is an entire line, not a single command!
+    // the actual command
     string command;
-    // string used to read command line arguments (especially for SHOW)
-    string command_line_arg;
     // the corresponding Enum value
     command_type command_value;
+    // string used to read command line arguments (especially for SHOW)
+    string command_line_arg;
     // flag used by the SHOW command to recognize if the rover to show exists
     bool rover_found = false;
+    // loop that manages the menu inquiry, until the terminating command is received
     do {
         print_menu();
         getline(cin, command_string);
