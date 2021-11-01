@@ -95,12 +95,16 @@ case ${line[0]} in
 		verify_command $line 2 $services
 		if (( ! $? )); then
 			systemctl start ${line[1]}
+		else 
+			exit 1	#exit code for parsing error
 		fi
 		;;
 	stop) 	#stop command
 		verify_command $line 2 $services
 		if (( ! $? )); then
 			systemctl stop ${line[1]}
+		else 
+			exit 1
 		fi
 		;;
 	status) #status command
@@ -121,11 +125,13 @@ case ${line[0]} in
 				# capture first time instant for the next iteration
 				(( begin_timestamp = $(date +%s%3N) ))
 			done;
+		else 
+			exit 1
 		fi
 		;;
 	*) 	#default behaviour: command not recognized
 		echo "ERROR: Command not recognized. Retry."
-		exit 1
+		exit 2	#exit code for not recognized command
 		;;
 esac
 
