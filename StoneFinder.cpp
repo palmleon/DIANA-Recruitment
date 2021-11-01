@@ -4,11 +4,10 @@
  * and stores the results into a "results.txt" file
  * Rovers are stored in a vector and contain information about the type 
  * and the quality of the stones that they are able to recognize.
+ * Then, the field is analyzed and, for each stone, the program tries to match
+ * the current line with the stone we are looking for, multiple times if possible.
  * For each rover and for each kind of stone, the program stores how many rocks 
  * have been found.
- * The, the field is analyzed and, for each stone, the program tries to match
- * the current line with the stone we are looking for, multiple times if possible.
- * Every time a stone is found, information about collected stones is updated.
  * Finally, an output file is produced, containing:
  * - the number of rovers
  * - for each rover, its name and id, together with the number of stones collected
