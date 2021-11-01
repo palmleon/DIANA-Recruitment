@@ -22,9 +22,9 @@
 # However, the challenge requires the program to work over low-bandwidth.
 # I have estimated that, if we have a best latency of 5ms and we have the 
 # longest possible string to transmit, i.e. something like
-# 	deactivating (1000 ms)            [22 chars + \n]
+# 	starting (1000 ms)            [18 chars + \n]
 # the max requested bandwidth should be equal to
-#	(1000/5)*22*8 = 36.8 Kb/s
+#	(1000/5)*19*8 = 30.4 Kb/s
 # which should not be too demanding
 #
 # Code developed for Team DIANA Recruitment
@@ -59,19 +59,19 @@ declare -i i=0
 
 end_flag=true
 
-while read line; do
+for line in $(<$servicefile); do
 	services+=(["$line"]=$i)
 	i=$i+1
-done <$servicefile
+done
 
 echo "Welcome to ServiceTool!"
-echo "---------------------------------------------------------------------------------"
+echo "--------------------------------------------------------------------"
 echo "To use this tool, use the following commands:"
 echo "1) start <service_name>: start a service"
 echo "2) stop <service_name>: stop a service"
 echo "3) status <service_name>: display service status"
-echo "---------------------------------------------------------------------------------"
-echo "---------------------------------------------------------------------------------"
+echo "--------------------------------------------------------------------"
+echo "--------------------------------------------------------------------"
 echo "Available services:"
 
 declare -i count=1
@@ -86,7 +86,7 @@ for service in ${!services[@]}; do
 	fi
 done
 echo
-echo "---------------------------------------------------------------------------------"
+echo "--------------------------------------------------------------------"
 
 while true; do
 ## The program goes into a loop to better check if the tool
@@ -110,12 +110,12 @@ case ${line[0]} in
 		fi
 		;;
 	status) #status command
+		# capture first time instant
+		(( begin_timestamp = $(date +%s%3N) ))
 		verify_command $line 2 $services
 		if (( ! $? )); then
 			# must be forced to be interrupted 
 			while true; do
-				# capture first time instant
-				(( begin_timestamp = $(date +%s%3N) ))
 				# check process status			
 				status=$(systemctl is-active ${line[1]}) 
 				# capture second time instant
@@ -124,6 +124,8 @@ case ${line[0]} in
 				(( latency = $end_timestamp - $begin_timestamp ))
 				# print status and latency
 				printf "%s (%d ms)\n" ${conversion_table[$status]} $latency
+				# capture first time instant for the next iteration
+				(( begin_timestamp = $(date +%s%3N) ))
 			done;
 		fi
 		;;
