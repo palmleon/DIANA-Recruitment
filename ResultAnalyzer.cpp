@@ -1,4 +1,15 @@
-/* 
+/*
+ * The following program implements the second part of the Probe Tool.
+ * In particular, it reads the results stored in "results.txt" and makes 
+ * it possible to read them via a command line interface
+ * The command line interface allows to:
+ * - list all information about the rovers
+ * - show data about a particular rover
+ * - display data about the most profitable rover
+ * - terminate the program (explicit termination)
+ * When the program is launched, a user-friendly interface illustrates
+ * what the Tool is capable of doing, making it more usable
+ * 
  * Code developed for the Team DIANA Recruitment
  * Leonardo Palmucci, October 2021
  */
@@ -52,11 +63,15 @@ int main(){
     int id, n_stones_collected;
     double quality, best_avg_quality = 0;
     unsigned long n_rovers; // stoul returns an unsigned long  (see below)
+
+    // read input file
     file.open(INPUT_FILE);
     if(!file.is_open()){
+        cout << "ERROR: File " << INPUT_FILE << " not opened correctly!" << endl;
         return EXIT_FAILURE;
     }
     if(!getline(file, line)){
+        cout << "ERROR: Could not read lines from file properly" << endl;
         file.close();
         return EXIT_FAILURE;
     }
@@ -87,20 +102,21 @@ int main(){
     string command_string;
     // stringstream containing the command (used to read command line args)
     stringstream command_stream;
-    // the actual command
+    // the actual command (the first command line argument, extracted from command_stream)
     string command;
     // the corresponding Enum value
     command_type command_value;
-    // string used to read command line arguments (especially for SHOW)
+    // string used to read the other command line arguments (especially for SHOW)
     string command_line_arg;
     // flag used by the SHOW command to recognize if the rover to show exists
     bool rover_found = false;
     // loop that manages the menu inquiry, until the terminating command is received
+    print_menu();
     do {
-        print_menu();
         getline(cin, command_string);
         command_stream = stringstream(command_string);
         command_stream >> command;
+        // check if the command is among the supported ones
         if(conversion_table.count(command) > 0) {
             command_value = conversion_table[command];
         }
@@ -126,6 +142,7 @@ int main(){
                     cout << "ERROR: Too many arguments" << endl;
                 else {
                     for(int i = 0; i < n_rovers && !rover_found; i++) {
+                        // check if there exist a rover with such a name
                         if(rovers[i].name.compare(command_line_arg) == 0) {
                             cout << "You have selected: " << endl;
                             cout << "Name: " << rovers[i].name << "\t";
@@ -162,7 +179,11 @@ int main(){
                 cout << "Command not recognized. Retry." << endl;
                 break;
         }
+        // print newlines to make output more readable
+        if (command_value != END)
+            cout << "--------------------------------------------" << endl;
+            
     } while (command_value != END);
 
-    return 0;
+    return EXIT_SUCCESS;
 }

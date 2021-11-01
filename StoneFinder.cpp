@@ -1,4 +1,21 @@
-/* 
+/**
+ * The following program implements the first part of the Probe Tool.
+ * In particular, it reads the content of the files "field.txt" and "rovers.txt"
+ * and stores the results into a "results.txt" file
+ * Rovers are stored in a vector and contain information about the type 
+ * and the quality of the stones that they are able to recognize.
+ * For each rover and for each kind of stone, the program stores how many rocks 
+ * have been found.
+ * The, the field is analyzed and, for each stone, the program tries to match
+ * the current line with the stone we are looking for, multiple times if possible.
+ * Every time a stone is found, information about collected stones is updated.
+ * Finally, an output file is produced, containing:
+ * - the number of rovers
+ * - for each rover, its name and id, together with the number of stones collected
+ *   and the quality of such stones
+ * The results are analyzed by the ResultAnalyzer program, that implements the
+ * second part of the Tool
+ * 
  * Code developed for the Team DIANA Recruitment
  * Leonardo Palmucci, October 2021
  */
@@ -49,20 +66,23 @@ int main(){
     double stone_quality;
     string line, rover_name, stone_code;
     vector<Rover> rover_vector;
+
     // read the rovers.txt file
     fstream file;
     file.open(ROVERS_FILE, ios::in);
     if(!file.is_open()) {
+        cout << "ERROR: File " << ROVERS_FILE << " not opened correctly!" << endl;
         return EXIT_FAILURE;
     } 
     // read the first line of rovers.txt: extract n_rovers
     if(!getline(file, line)){
+        cout << "ERROR: Could not read lines from file properly" << endl;
         file.close();
         return EXIT_FAILURE;
     }
     // a bit safer than using stream operators, in this case
     n_rovers = stoul(line);
-    // we assume that, from now on, there are no syntax errors
+    // Assumption: from now on, there are no syntax errors
     // in the rovers.txt file
     rover_vector = vector<Rover>(n_rovers);
     for (unsigned long i = 0; i < n_rovers; i++) {
@@ -77,6 +97,7 @@ int main(){
     // read the field.txt file
     file.open(FIELD_FILE, ios::in);
     if(!file.is_open()) {
+        cout << "ERROR: File " << FIELD_FILE << " not opened correctly!" << endl;
         return EXIT_FAILURE;
     } 
     /* these variables are used to traverse lines, keeping track
@@ -84,7 +105,7 @@ int main(){
      * - pos is the index where we should read from
      * - match_pos is the point where a rock has been found
      */
-    int match_pos, pos, linenum = 0;
+    int match_pos, pos;
     /* for each line, we try to look for all the rocks, one after the other
      * Assumption: it is not possible to find substrings like
      * FR-MA-GU, i.e. rocks sharing some letters
@@ -108,12 +129,12 @@ int main(){
                 }
             }
         }
-        linenum++;
     }
     file.close();
     // create the output file
     file.open(OUTPUT_FILE, ios::out);
     if(!file.is_open()) {
+        cout << "ERROR: File " << OUTPUT_FILE << " not opened correctly!" << endl;
         return EXIT_FAILURE;
     } 
     file << n_rovers << endl;
@@ -131,5 +152,5 @@ int main(){
         file << endl;
     }
     file.close();
-    return 0;
+    return EXIT_SUCCESS;
 }
