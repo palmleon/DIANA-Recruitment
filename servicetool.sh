@@ -88,12 +88,6 @@ done
 echo
 echo "--------------------------------------------------------------------"
 
-while true; do
-## The program goes into a loop to better check if the tool
-## 	satisfies the real-time constraint 
-## i.e. the user can use the status command multiple times
-## 	in a much shorter time
-
 # read user command
 read -a line
 case ${line[0]} in
@@ -131,12 +125,8 @@ case ${line[0]} in
 		;;
 	*) 	#default behaviour: command not recognized
 		echo "ERROR: Command not recognized. Retry."
+		exit 1
 		;;
 esac
-
-	# loop condition control
-	$end_flag || break
-done
-
 
 exit 0
